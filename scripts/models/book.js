@@ -9,27 +9,37 @@ if (ENV.isProduction){
   alert('hi');
 }
 
+let app = app || {};
+
 (function(module) {
+
   function errorCallback(err) {
     console.error(err);
     module.errorView.initErrorPage(err);
   }
-  function Task(taskObject) {
+
+  function Book(taskObject) {
     Object.keys(taskObject).forEach(key => this[key] = taskObject[key]);
   }
-  Task.prototype.toHtml = function() {
-    let template = Handlebars.compile($('#task-template').text());
+  
+  Book.all = [];
+
+  Book.prototype.toHtml = function() {
+    let template = Handlebars.compile($('#book-list-template').text());
     return template(this);
-  }
-  Task.all = [];
-  Task.loadAll = rows => {
-    Task.all = rows.sort((a, b) => b.title - a.title).map(task => new Task(task));
-  }
-  Task.fetchAll = callback =>
+  };
+
+
+  Book.loadAll = rows => {
+    Book.all = rows.sort((a, b) => b.title - a.title).map(task => new Book(task));
+  };
+
+  Book.fetchAll = callback => {
     $.get(`${ENV.apiUrl}/books`)
-      .then(Task.loadAll)
+      .then(Book.loadAll)
       .then(callback)
       .catch(errorCallback);
-  module.Task = Task;
-})(app)
+  };
+  module.Task = Book;
+})(app);
 

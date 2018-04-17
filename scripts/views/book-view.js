@@ -1,17 +1,27 @@
 'use strict';
+
 var app = app || {};
+
 (function (module) {
-  const taskView = {};
-  taskView.initIndexPage = function () {
+
+  const bookView = {};
+
+  bookView.initIndexPage = () => {
     $('.container').hide();
-    $('.task-view').show();
-    console.log('init index page');
-    app.Task.all.map(task => $('#task-list').append(task.toHtml()));
+    $('.book-view').show();
+    console.log('init index');
+    app.Book.all.map(book => $('#book-list').append(book.toHtml()));
+    $('#book-count').text(app.Book.numBooks);
   };
-  module.taskView = taskView;
+
+
+  module.bookView = bookView;
+
 })(app);
 
 $(function () {
   console.log('in IIFE?');
-  app.Task.fetchAll(app.taskView.initIndexPage);
+  app.Book.fetchAll(app.bookView.initIndexPage);
 });
+
+

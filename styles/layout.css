@@ -1,39 +1,81 @@
-.pull-left {
-  float: left;
+img {
+  display: block;
+  margin: auto;
 }
 
-.pull-right {
+header img {
+float: left;
+  width: 15%;
+}
+
+h4 {
+  font-size: 20px;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  padding: 0px;
+}
+
+li .book-item {
+  width: 100%;
+  margin: -900px;
+}
+
+.book-view {
+  background-color: lightgray;
+}
+
+header {
+  width: 90%;
+  margin: 0 auto;
+  padding: 5%;
+  color: rgb(177, 176, 176);
+  background-color: rgb(85, 83, 83);
+  overflow: hidden;
+}
+
+header h1 {
+  float: left;
+  padding-top: 4%;
+  width: 80%;
+  margin: 0 auto;
+  margin-left: 5%;
+}
+
+.book-view h1  {
+  padding-left: 5%;
+  padding-top: 5%;
+  margin:  0 auto;
+}
+
+.img-container {
+  margin: 0 auto;
+  padding-top: 5%;
+  width: 80%;
+  background-color: rgb(128, 122, 122);
+  border-radius: 5px 5px 0 0 ;
+}
+
+.book-info {
+  background-color: rgb(85, 83, 83);
+  width: 100%;
+  padding: 1.5% 0 3% 0;
+}
+
+footer {
+  background-color: rgb(85, 83, 83);
+  overflow: hidden;
+}
+
+.icon-github, .icon-linkedin {
+  padding-top: 4%;
+  padding-right: 4%;
+  padding-bottom: 10%;
+  font-size: 25px;
   float: right;
 }
 
-.clearfix::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.heading-group-h1 {
-  max-width: 80%;
-}
-
-#filters select {
-  width: 90%;
-  margin: .2em 5%;
-}
-
-@media only screen and (min-width: 640px) {
-  .heading-group-h1 {
-    padding: .1em .1em .1em 2em;
-    float: none;
-  }
-
-  #filters select {
-    width: 15em;
-    margin: .2em .2em;
-  }
-
-  #filters li {
-    width: 20em;
-    display: inline;
-  }
-}

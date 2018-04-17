@@ -4,19 +4,24 @@ var app = app || {};
 
 (function (module) {
 
-  let bookView = {};
+  const bookView = {};
 
   bookView.initIndexPage = () => {
     $('.container').hide();
     $('.book-view').show();
-    app.Book.all.map(books => $('#book-list').append(books.toHtml()));
+    console.log('init index');
+    app.Book.all.map(book => $('#book-list').append(book.toHtml()));
+    $('#book-count').text(app.Book.numBooks);
   };
 
-module.bookView = bookView;
+
+  module.bookView = bookView;
 
 })(app);
 
-// $(function () {
-//   console.log('in IIFE?');
-//   app.Task.fetchAll(app.taskView.initIndexPage);
-// }
+$(function () {
+  console.log('in IIFE?');
+  app.Book.fetchAll(app.bookView.initIndexPage);
+});
+
+

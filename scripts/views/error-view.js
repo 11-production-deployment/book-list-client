@@ -9,15 +9,10 @@ var app = app || {};
   errorView.initErrorPage = (err) => {
     $('.container').hide();
     $('.error-view').show();
-    $('#error-message').innerHtml = '';
+    $('#error-message').empty();
     let template = Handlebars.compile($('#error-template').text());
     $('#error-message').append(template(err));
   };
-
-  function errorCallBack(error) {
-    console.error(error);
-    errorView.initErrorPage(error);
-  }
 
   module.errorView = errorView;
 })(app);

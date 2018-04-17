@@ -1,3 +1,7 @@
+'use strict';
+
+var app = app || {};
+
 const ENV = {};
 
 ENV.isProduction = window.location.protocol === 'https:';
@@ -5,11 +9,7 @@ ENV.productionApiUrl = 'https://git.heroku.com/ab-bb-booklist.git';
 ENV.developmentApiUrl = 'http://localhost:3000';
 ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
-if (ENV.isProduction){
-  alert('hi');
-}
 
-let app = app || {};
 
 (function(module) {
 
@@ -18,28 +18,34 @@ let app = app || {};
     module.errorView.initErrorPage(err);
   }
 
-  function Book(taskObject) {
-    Object.keys(taskObject).forEach(key => this[key] = taskObject[key]);
+  function Book(rawDataObject) {
+    Object.keys(rawDataObject).forEach(key => this[key] = rawDataObject[key]);
   }
-  
-  Book.all = [];
+
 
   Book.prototype.toHtml = function() {
-    let template = Handlebars.compile($('#book-list-template').text());
+    var template = Handlebars.compile($('#book-list-template').text());
     return template(this);
   };
 
+  Book.all = [];
 
   Book.loadAll = rows => {
-    Book.all = rows.sort((a, b) => b.title - a.title).map(task => new Book(task));
+    rows.sort((a, b) => b.title - a.title);
+    Book.all = rows.map(book => new Book(book));
+  };
+
+  Book.numBooks = () => {
+    return Book.all.length;
   };
 
   Book.fetchAll = callback => {
-    $.get(`${ENV.apiUrl}/books`)
+    $.get(`${ENV.apiUrl}/api/v1/books`)
+
       .then(Book.loadAll)
       .then(callback)
-      .catch(errorCallback);
+      .catch(app.errorCallback);
   };
-  module.Task = Book;
+  module.Book = Book;
 })(app);
 
